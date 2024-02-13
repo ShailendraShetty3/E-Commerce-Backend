@@ -13,6 +13,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import UserListCreateView, UserDetail
+from .views import SocialListCreateView, SocialDetail
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -32,6 +33,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', UserListCreateView.as_view(), name='user-list-create'),
     path('users/<int:id>/', UserDetail.as_view(), name='user-detail'),
+    path('social/', SocialListCreateView.as_view(), name='social-list-create'),
+    path('social/<int:user_id>/', SocialDetail.as_view(), name='social-detail'),
 
 
     # Swagger documentation URLs
