@@ -11,10 +11,10 @@ class User(models.Model):
     
 
 class Social(models.Model):
-    id = models.ForeignKey(User, on_delete=models.CASCADE, default=...)
+    uid = models.ForeignKey(User, on_delete=models.CASCADE,blank=True, null=True)
     platform = models.CharField(max_length=15)
     platform_user = models.CharField(max_length=15)
 
     def __str__(self):
-        return self.user_id
+        return self.uid
 

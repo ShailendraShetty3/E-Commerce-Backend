@@ -34,8 +34,7 @@ urlpatterns = [
     path('users/', UserListCreateView.as_view(), name='user-list-create'),
     path('users/<int:id>/', UserDetail.as_view(), name='user-detail'),
     path('social/', SocialListCreateView.as_view(), name='social-list-create'),
-    path('social/<int:user_id>/', SocialDetail.as_view(), name='social-detail'),
-
+    # path('social/<int:user_id>/', SocialDetail.as_view(), name='social-detail'),
 
     # Swagger documentation URLs
     path('swagger(?P<format>\.json|\.yaml)/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
