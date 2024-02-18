@@ -1,9 +1,9 @@
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Social
-from .serializers import UserSerializer
-from .serializers import SocialSerializer
+from .models import User, Social, Cart, Order, Credential
+from .serializers import UserSerializer, SocialSerializer
+from .serializers import CartSerializer, OrderSerializer, CredentialSerializer
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework import status,generics,parsers
@@ -145,3 +145,153 @@ class SocialDetail(generics.GenericAPIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+
+
+#Cart
+    
+class CartListCreateView(generics.GenericAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    parser_classes = [parsers.MultiPartParser]
+
+    def get(self, request, format=None):
+        cart = Cart.objects.all()
+        serializer = CartSerializer(cart, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+class CartDetail(generics.GenericAPIView):
+    serializer_class = CartSerializer
+    parser_classes = [parsers.MultiPartParser]
+    def get_object(self, id):
+        try:
+            return Cart.objects.get(pk=id)
+        except Cart.DoesNotExist:
+            return None
+    
+    def get(self, request, id, format=None):
+        cart = self.get_object(id)
+        if cart:
+            serializer = CartSerializer(cart)
+            return Response(serializer.data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, id, format=None):
+        cart = get_object_or_404(Cart, pk=id)
+        serializer = CartSerializer(cart, data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    def delete(self, request, id, format=None):
+        cart = self.get_object(id)
+        if cart:
+            cart.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def patch(self, request, id, format=None):
+        cart = get_object_or_404(Cart, pk=id)
+        serializer = CartSerializer(cart, data=request.data, partial=True)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+
+
+# Order
+    
+class OrderListCreateView(generics.GenericAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    parser_classes = [parsers.MultiPartParser]
+
+    def get(self, request, format=None):
+        social = Social.objects.all()
+        serializer = OrderSerializer(social, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class OrderDetail(generics.GenericAPIView):
+    serializer_class = OrderSerializer
+    parser_classes = [parsers.MultiPartParser]
+    def get_object(self, id):
+        try:
+            return Order.objects.get(pk=id)
+        except Order.DoesNotExist:
+            return None
+    
+    def get(self, request, id, format=None):
+        order = self.get_object(id)
+        if order:
+            serializer = OrderSerializer(order)
+            return Response(serializer.data)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, id, format=None):
+        order = get_object_or_404(Order, pk=id)
+        serializer = OrderSerializer(order, data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    def delete(self, request, id, format=None):
+        order = self.get_object(id)
+        if order:
+            order.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def patch(self, request, id, format=None):
+        order = get_object_or_404(Social, pk=id)
+        serializer = OrderSerializer(order, data=request.data, partial=True)
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class CredentialListCreateView(generics.GenericAPIView):
+    queryset = Order.objects.all()
+    serializer_class = CredentialSerializer
+    parser_classes = [parsers.MultiPartParser]
+
+    def get(self, request, format=None):
+        credential = Credential.objects.all()
+        serializer = CredentialSerializer(credential, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

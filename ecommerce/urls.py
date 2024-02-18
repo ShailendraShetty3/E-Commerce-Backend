@@ -14,6 +14,9 @@ from django.contrib import admin
 from django.urls import path
 from .views import UserListCreateView, UserDetail
 from .views import SocialListCreateView, SocialDetail
+from .views import CartListCreateView, CartDetail
+from .views import OrderListCreateView, OrderDetail
+from .views import CredentialListCreateView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -34,7 +37,12 @@ urlpatterns = [
     path('users/', UserListCreateView.as_view(), name='user-list-create'),
     path('users/<int:id>/', UserDetail.as_view(), name='user-detail'),
     path('social/', SocialListCreateView.as_view(), name='social-list-create'),
-    # path('social/<int:user_id>/', SocialDetail.as_view(), name='social-detail'),
+    path('social/<int:id>/', SocialDetail.as_view(), name='social-detail'),
+    path('cart/', CartListCreateView.as_view(), name='cart-list-create'),
+    path('cart/<int:id>/', SocialDetail.as_view(), name='social-detail'),
+    path('order/', OrderListCreateView.as_view(), name='order-list-create'),
+    path('order/<int:id>/', OrderDetail.as_view(), name='order-detail'),
+    path('credential/', CredentialListCreateView.as_view(), name='order-list-create'),
 
     # Swagger documentation URLs
     path('swagger(?P<format>\.json|\.yaml)/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
