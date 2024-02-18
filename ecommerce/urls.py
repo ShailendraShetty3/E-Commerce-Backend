@@ -15,6 +15,7 @@ from django.urls import path
 from .views import UserListCreateView, UserDetail
 from .views import SocialListCreateView, SocialDetail
 from .views import CartListCreateView, CartDetail
+from .views import CartItemsListCreateView
 from .views import OrderListCreateView, OrderDetail
 from .views import CredentialListCreateView
 from drf_yasg.views import get_schema_view
@@ -39,7 +40,10 @@ urlpatterns = [
     path('social/', SocialListCreateView.as_view(), name='social-list-create'),
     path('social/<int:id>/', SocialDetail.as_view(), name='social-detail'),
     path('cart/', CartListCreateView.as_view(), name='cart-list-create'),
-    path('cart/<int:id>/', SocialDetail.as_view(), name='social-detail'),
+    path('cart/<int:id>/', CartDetail.as_view(), name='social-detail'),
+
+    path('cartItems/', CartItemsListCreateView.as_view(), name='cart-list-create'),
+
     path('order/', OrderListCreateView.as_view(), name='order-list-create'),
     path('order/<int:id>/', OrderDetail.as_view(), name='order-detail'),
     path('credential/', CredentialListCreateView.as_view(), name='order-list-create'),

@@ -29,6 +29,16 @@ class Cart(models.Model):
     def __str__(self):
         return self.id
     
+class CartItems(models.Model):
+    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE,blank=True, null=True)
+    product_id = models.ForeignKey(User, on_delete=models.CASCADE,blank=True, null=True)
+    price = models.FloatField(blank=True, null=True)
+    quantity = models.PositiveIntegerField(blank=True, null=True)
+    created_at = models.CharField(max_length=15)   
+
+    def __str__(self):
+        return self.cart_id
+    
 
 class Order(models.Model):
     id= models.AutoField(primary_key=True)

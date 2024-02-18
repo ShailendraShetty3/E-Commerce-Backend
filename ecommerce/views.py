@@ -1,9 +1,9 @@
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Social, Cart, Order, Credential
+from .models import User, Social, Cart, CartItems, Order, Credential
 from .serializers import UserSerializer, SocialSerializer
-from .serializers import CartSerializer, OrderSerializer, CredentialSerializer
+from .serializers import CartSerializer, CartItemsSerializer, OrderSerializer, CredentialSerializer
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework import status,generics,parsers
@@ -212,6 +212,25 @@ class CartDetail(generics.GenericAPIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+#Cart Items
+    
+class CartItemsListCreateView(generics.GenericAPIView):
+    queryset = CartItems.objects.all()
+    serializer_class = CartItemsSerializer
+    parser_classes = [parsers.MultiPartParser]
+
+    def get(self, request, format=None):
+        cartItems = CartItems.objects.all()
+        serializer = CartItemsSerializer(cartItems, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
