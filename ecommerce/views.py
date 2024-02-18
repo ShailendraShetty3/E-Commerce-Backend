@@ -1,9 +1,9 @@
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User, Social, Cart, CartItems, Order, Credential
+from .models import User, Social, Cart, CartItems, Order, Order_Lines, Credential
 from .serializers import UserSerializer, SocialSerializer
-from .serializers import CartSerializer, CartItemsSerializer, OrderSerializer, CredentialSerializer
+from .serializers import CartSerializer, CartItemsSerializer, OrderSerializer, Order_LineSerializer, CredentialSerializer
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework import status,generics,parsers
@@ -298,6 +298,28 @@ class OrderDetail(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+# Order_Lines
+    
+class Order_LineListCreateView(generics.GenericAPIView):
+    queryset = Order_Lines.objects.all()
+    serializer_class = Order_LineSerializer
+    parser_classes = [parsers.MultiPartParser]
+
+    def get(self, request, format=None):
+        order_line = Order_Lines.objects.all()
+        serializer = Order_LineSerializer(order_line, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+#Credentials
+    
 class CredentialListCreateView(generics.GenericAPIView):
     queryset = Order.objects.all()
     serializer_class = CredentialSerializer

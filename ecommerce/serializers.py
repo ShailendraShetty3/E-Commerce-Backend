@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Social, Cart, Order, Credential
+from .models import User, Social, Cart, Order, Order_Lines, Credential
 
 # class UserSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -31,6 +31,11 @@ class CartItemsSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
+        fields = '__all__'
+
+class Order_LineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order_Lines
         fields = '__all__'
 
 class CredentialSerializer(serializers.ModelSerializer):

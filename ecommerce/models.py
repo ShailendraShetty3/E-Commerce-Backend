@@ -48,6 +48,16 @@ class Order(models.Model):
     def __str__(self):
         return self.id
     
+class Order_Lines(models.Model):
+    id= models.AutoField(primary_key=True)
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE,blank=True, null=True)
+    product_id = models.CharField(max_length=15)
+    price = models.PositiveIntegerField(blank=True, null=True)
+    quantity = models.PositiveIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.id
+    
 
 class Credential(models.Model):
     provider_id = models.CharField(max_length=15)

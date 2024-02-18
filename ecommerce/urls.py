@@ -17,6 +17,7 @@ from .views import SocialListCreateView, SocialDetail
 from .views import CartListCreateView, CartDetail
 from .views import CartItemsListCreateView
 from .views import OrderListCreateView, OrderDetail
+from .views import Order_LineListCreateView
 from .views import CredentialListCreateView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -46,6 +47,8 @@ urlpatterns = [
 
     path('order/', OrderListCreateView.as_view(), name='order-list-create'),
     path('order/<int:id>/', OrderDetail.as_view(), name='order-detail'),
+    path('order_lines/', Order_LineListCreateView.as_view(), name='order_line-list-create'),
+
     path('credential/', CredentialListCreateView.as_view(), name='order-list-create'),
 
     # Swagger documentation URLs
