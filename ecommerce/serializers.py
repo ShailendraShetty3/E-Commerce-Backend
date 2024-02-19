@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Social, Cart, Order, Order_Lines, Credential, Review
+from .models import User, Social, Cart, Order, Product, Order_Lines, Credential, Review
 
 # class UserSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -51,7 +51,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Credential
+        model = Product
         fields = '__all__'
 
 class ReviewSerializer(serializers.ModelSerializer):

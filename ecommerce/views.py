@@ -81,8 +81,6 @@ class UserDetail(generics.GenericAPIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-
 # social
     
 class SocialListCreateView(generics.GenericAPIView):
@@ -104,7 +102,7 @@ class SocialListCreateView(generics.GenericAPIView):
 
 class SocialDetail(generics.GenericAPIView):
     serializer_class = SocialSerializer
-    parser_classes = [parsers.MultiPartParser]  #comment it if you want patch to work in swagger but form fields will dissapear
+    parser_classes = [parsers.MultiPartParser]  #comment it if you want patch to work in swagger but form fields will go off
     def get_object(self, id):
         try:
             return Social.objects.get(pk=id)

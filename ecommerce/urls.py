@@ -44,8 +44,10 @@ urlpatterns = [
     path('social/<int:id>/', SocialDetail.as_view(), name='social-detail'),
     path('category/', CategoryListCreateView.as_view(), name='category-list-create'),
     path('category/<int:id>/', CategoryDetail.as_view(), name='category-detail'),
+
     path('product/', ProductListCreateView.as_view(), name='product-list-create'),
     path('product/<int:id>/', ProductDetail.as_view(), name='product-detail'),
+    
     path('cart/', CartListCreateView.as_view(), name='cart-list-create'),
     path('cart/<int:id>/', CartDetail.as_view(), name='social-detail'),
     path('cartItems/', CartItemsListCreateView.as_view(), name='cart-list-create'),
