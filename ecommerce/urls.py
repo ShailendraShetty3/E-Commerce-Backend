@@ -14,6 +14,8 @@ from django.contrib import admin
 from django.urls import path
 from .views import UserListCreateView, UserDetail
 from .views import SocialListCreateView, SocialDetail
+from .views2 import CategoryListCreateView, CategoryDetail, ProductListCreateView, ProductDetail
+from .views2 import ReviewListCreateView
 from .views import CartListCreateView, CartDetail
 from .views import CartItemsListCreateView
 from .views import OrderListCreateView, OrderDetail
@@ -40,16 +42,18 @@ urlpatterns = [
     path('users/<int:id>/', UserDetail.as_view(), name='user-detail'),
     path('social/', SocialListCreateView.as_view(), name='social-list-create'),
     path('social/<int:id>/', SocialDetail.as_view(), name='social-detail'),
+    path('category/', CategoryListCreateView.as_view(), name='category-list-create'),
+    path('category/<int:id>/', CategoryDetail.as_view(), name='category-detail'),
+    path('product/', ProductListCreateView.as_view(), name='product-list-create'),
+    path('product/<int:id>/', ProductDetail.as_view(), name='product-detail'),
     path('cart/', CartListCreateView.as_view(), name='cart-list-create'),
     path('cart/<int:id>/', CartDetail.as_view(), name='social-detail'),
-
     path('cartItems/', CartItemsListCreateView.as_view(), name='cart-list-create'),
-
     path('order/', OrderListCreateView.as_view(), name='order-list-create'),
     path('order/<int:id>/', OrderDetail.as_view(), name='order-detail'),
     path('order_lines/', Order_LineListCreateView.as_view(), name='order_line-list-create'),
-
     path('credential/', CredentialListCreateView.as_view(), name='order-list-create'),
+    path('review/', ReviewListCreateView.as_view(), name='review-list-create'),
 
     # Swagger documentation URLs
     path('swagger(?P<format>\.json|\.yaml)/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
