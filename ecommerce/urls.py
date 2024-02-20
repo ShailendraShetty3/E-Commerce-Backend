@@ -49,7 +49,7 @@ urlpatterns = [
     path('product/<int:id>/', ProductDetail.as_view(), name='product-detail'),
     
     path('cart/', CartListCreateView.as_view(), name='cart-list-create'),
-    path('cart/<int:id>/', CartDetail.as_view(), name='social-detail'),
+    path('cart/<int:id>/', CartDetail.as_view(), name='cart-detail'),
     path('cartItems/', CartItemsListCreateView.as_view(), name='cart-list-create'),
     path('order/', OrderListCreateView.as_view(), name='order-list-create'),
     path('order/<int:id>/', OrderDetail.as_view(), name='order-detail'),
