@@ -88,7 +88,7 @@ class CategoryDetail(generics.GenericAPIView):
 
 class ProductListCreateView(generics.GenericAPIView):
     queryset = Product.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = ProductSerializer
     parser_classes = [parsers.MultiPartParser]
 
     def get(self, request, format=None):
@@ -104,7 +104,7 @@ class ProductListCreateView(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProductDetail(generics.GenericAPIView):
-    serializer_class = CategorySerializer
+    serializer_class = ProductSerializer
     parser_classes = [parsers.MultiPartParser]
     def get_object(self, id):
         try:

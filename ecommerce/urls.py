@@ -11,7 +11,7 @@
 # ]
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from .views import UserListCreateView, UserDetail
 from .views import SocialListCreateView, SocialDetail
 from .views2 import CategoryListCreateView, CategoryDetail, ProductListCreateView, ProductDetail
@@ -56,6 +56,8 @@ urlpatterns = [
     path('order_lines/', Order_LineListCreateView.as_view(), name='order_line-list-create'),
     path('credential/', CredentialListCreateView.as_view(), name='order-list-create'),
     path('review/', ReviewListCreateView.as_view(), name='review-list-create'),
+
+    path('auth/', include('authentication.urls')),
 
     # Swagger documentation URLs
     path('swagger(?P<format>\.json|\.yaml)/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
